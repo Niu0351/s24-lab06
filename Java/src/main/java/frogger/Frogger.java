@@ -36,7 +36,7 @@ public class Frogger {
      */
     public boolean move(boolean forward) {
         int nextPosition = this.position + (forward ? 1 : -1);
-        if (!isValid(nextPosition) || isOccupied(nextPosition)) {
+        if (!road.isValid(nextPosition) || road.isOccupied(nextPosition)) {
             return false;
         }
         this.position = nextPosition;
@@ -44,6 +44,10 @@ public class Frogger {
     }
 
     // TODO: Do you notice any issues here?
+    // There is an anti-pattern problem which is about feature envy
+    // heavy usage of one class' data from another
+    // Solution: Move them to Road.java
+    /*
     public boolean isOccupied(int position) {
         boolean[] occupied = this.road.getOccupied();
         return occupied[position];
@@ -54,6 +58,7 @@ public class Frogger {
         boolean[] occupied = this.road.getOccupied();
         return position < occupied.length;
     }
+    */
 
     /**
      * Records Frogger to the list of records.
