@@ -30,10 +30,18 @@ public class Drawing {
      */
     public void draw(String format, String filename) {
         // TODO: Do you notice any issues here?
+        // With passing the file format string into the function, there are
+        // nearly identical implementation for both jpeg and png type
+        // Solution: strategy pattern, create a writer interface and a writting
+        // type method and implement this interface for both file type
         if (format.equals("jpeg")) {
             try (Writer writer = new JPEGWriter(filename + ".jpeg")) {
                 for (Shape shape : this.shapes) {
                     // TODO: What is the issue of the behavior here?
+                    // Implementation detaied is exposed too much about how a shape could
+                    // be converted to lines. It is good to use the draw method from Shape
+                    // class to convert the shape to lines internally and return by the Writer
+                    // object.
                     Line[] lines = shape.toLines();
                     shape.draw(writer, lines);
                 }
